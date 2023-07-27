@@ -2,17 +2,19 @@ from typing import Optional
 
 from langsmith.evaluation import RunEvaluator, EvaluationResult
 from langsmith.schemas import Run, Example
-
-from human_eval.execution import check_correctness
-from human_eval.data import read_problems
-
 class HumanEvalEvaluator(RunEvaluator):
     """ This is a wrapper around the HumanEval evaluator. """
 
     def __init__(self):
+
+        from human_eval.data import read_problems
+        
         self.problems = read_problems()
 
     def evaluate_run(self, run: Run, example: Optional[Example] = None) -> EvaluationResult:
+
+        from human_eval.execution import check_correctness
+
         print("Evaluating " + run.inputs["task_id"])
         problem = HumanEvalEvaluator.self.problems[run.inputs["task_id"]]
         solution = run.outputs["output"]
