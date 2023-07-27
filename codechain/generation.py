@@ -96,5 +96,5 @@ class HumanEvalChain(SequentialChain):
   def from_llm(cls, llm: BaseLanguageModel) -> "HumanEvalChain":
 
     return cls.from_llm(
-        CompleteCodeChain.from_instruction(llm=llm)
+        CompleteCodeChain.from_llm(llm=llm)
     )
