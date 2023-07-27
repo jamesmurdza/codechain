@@ -2,7 +2,7 @@ from typing import Dict
 
 from langchain.chains import LLMChain, SimpleSequentialChain, SequentialChain, TransformChain
 from langchain.prompts import PromptTemplate
-from langchain.schema import BaseLanguageModel
+from langchain.base_language import BaseLanguageModel
 import re
 
 class CodeChain(SimpleSequentialChain):
