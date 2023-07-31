@@ -1,7 +1,7 @@
 from typing import Dict
 
 from langchain.chains import LLMChain, SimpleSequentialChain, SequentialChain, TransformChain
-from langchain.prompts import PromptTemplate
+from langchain.prompts import BasePromptTemplate, PromptTemplate
 from langchain.base_language import BaseLanguageModel
 import re
 
@@ -16,7 +16,7 @@ class CodeChain(SimpleSequentialChain):
         return {"output": result}
 
     @classmethod
-    def from_prompt(cls, prompt, llm: BaseLanguageModel) -> "CodeChain":
+    def from_prompt(cls, prompt: BasePromptTemplate, llm: BaseLanguageModel) -> "CodeChain":
         """ Return the code block from a Markdown chat response. """
 
         llm_chain = LLMChain(prompt=prompt, llm=llm)
