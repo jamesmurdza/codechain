@@ -4,6 +4,10 @@ CodeChain is a library for generating and evaluating code with LLMs.
 
 To install: `pip install codechain`
 
+To install from source: `pip install -e .`
+
+To run unit tests: `python tests/*.py`
+
 ## Code completion
 
 Usage is very simple:
