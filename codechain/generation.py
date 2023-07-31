@@ -60,7 +60,7 @@ class InputMapper(TransformChain):
       async def map_dict(input_dict: Dict) -> Dict:
         return {mapping[input]: value for input, value in input_dict.items() if input in mapping}
 
-      return TransformChain(
+      return cls(
           input_variables=[input for input in mapping.keys()],
           output_variables=[output for output in mapping.values() if output is not None],
           transform=map_dict,
