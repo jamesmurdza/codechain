@@ -20,7 +20,7 @@ generator = CompleteCodeChain.from_llm(
     ChatOpenAI(model="gpt-3.5-turbo", temperature=0.2)
     )
 
-result = await generator.arun("""
+result = generator.run("""
 def fibonacci(n):
 # Generate the n-th fibonacci number.
 """)

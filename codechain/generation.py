@@ -9,11 +9,15 @@ class CodeChain(SimpleSequentialChain):
     """ Chain that generates code from a prompt. """
     
     @staticmethod
-    async def extract_code(inputs: dict) -> dict:
+    def extract_code(inputs: dict) -> dict:
         text = inputs["text"]
         result = re.search(r'```.*?\n(.*?)\n```', text, re.DOTALL)
         result = result.group(1) if result else text
         return {"output": result}
+    
+    @staticmethod
+    async def aextract_code(inputs: dict) -> dict:
+        return CodeChain.extract_code(inputs)
 
     @classmethod
     def from_prompt(cls, prompt: BasePromptTemplate, llm: BaseLanguageModel) -> "CodeChain":
@@ -24,7 +28,7 @@ class CodeChain(SimpleSequentialChain):
             input_variables=["text"],
             output_variables=["output"],
             transform=CodeChain.extract_code,
-            atransform=CodeChain.extract_code
+            atransform=CodeChain.aextract_code
         )
         return cls(
             chains=[llm_chain, transform_chain]
@@ -57,14 +61,17 @@ class InputMapper(TransformChain):
   @classmethod
   def from_mapping(cls, mapping: Dict) -> "InputMapper":
 
-      async def map_dict(input_dict: Dict) -> Dict:
+      def map_dict(input_dict: Dict) -> Dict:
         return {mapping[input]: value for input, value in input_dict.items() if input in mapping}
+
+      async def amap_dict(input_dict: Dict) -> Dict:
+        return map_dict(input_dict)
 
       return cls(
           input_variables=[input for input in mapping.keys()],
           output_variables=[output for output in mapping.values() if output is not None],
           transform=map_dict,
-          atransform=map_dict
+          atransform=amap_dict
       )
 
 class HumanEvalChain(SequentialChain):
