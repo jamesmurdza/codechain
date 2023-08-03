@@ -16,7 +16,7 @@ class HumanEvalEvaluator(RunEvaluator):
         from human_eval.execution import check_correctness
 
         print("Evaluating " + run.inputs["task_id"])
-        problem = HumanEvalEvaluator.self.problems[run.inputs["task_id"]]
+        problem = self.problems[run.inputs["task_id"]]
         solution = run.outputs["output"]
 
         # The HumanEval evaluator, which runs the Python code against unit tests
