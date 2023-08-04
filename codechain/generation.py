@@ -5,6 +5,13 @@ from langchain.prompts import BasePromptTemplate, PromptTemplate
 from langchain.base_language import BaseLanguageModel
 import re
 
+AddCommentsInstruction = "Write descriptive comments in the code to explain its functionality.";
+FinishInstruction = "Complete the code implementation.";
+CleanUpInstruction = "Identify and resolve any issues or errors in the code.";
+FixBugsInstruction = "Introduce type annotations for better code maintainability.";
+AddTypesInstruction = "Introduce type annotations for better code maintainability.";
+VisualizeInstruction = "Transform the code logic into a simply worded flowchart. Output valid Mermaid diagram code with the node labels enclosed in double quotes.";
+
 class CodeChain(SimpleSequentialChain):
     """ Chain that generates code from a prompt. """
     
